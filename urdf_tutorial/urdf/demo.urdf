@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<robot name="diff_drive">
+  <link name="base_link">
+    <visual>
+       <geometry>
+	 <box size="0.4 0.3 0.05"/>
+       </geometry>
+       <origin xyz="0 0 0.12"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.4 0.3 0.05"/>
+      </geometry>
+      <origin xyz="0 0 0.12"/>
+    </collision>
+    <inertial>
+     <mass value="10">
+     <inertia ixx="">
+    </inertial>
+    
+  </link>
+
+  <link name="lwheel">
+    <visual>
+     <geometry>
+      <cylinder length ="0.04" radius="0.12"/>
+     </geometry>
+     <origin rpy="1.57 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+     <geometry>
+      <cylinder length="0.04" radius="0.12"/>
+      <origin rpy="1.57 0 0"/>
+     </geometry>
+    </collision>
+    
+  </link>
+
+  <joint name="base_lwheel" type="revolute">
+    <parent link ="base_link"/>
+    <child link ="lwheel"/>
+    <origin xyz= "-0.1 -0.17 0.12" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="3.14" upper="-3.14" velocity="0.5"/>
+  </joint>
+
+  <link name="rwheel">
+    <visual>
+     <geometry>
+      <cylinder length ="0.04" radius="0.12"/>
+     </geometry>
+     <origin rpy="-1.57 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+     <geometry>
+      <cylinder length="0.04" radius="0.12"/>
+      <origin rpy="-1.57 0 0"/>
+     </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_rwheel" type="revolute">
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <parent link ="base_link"/>
+    <child link ="rwheel"/>
+    <origin xyz= "-0.1 0.17 0.12" rpy="0 0 0"/>
+    <limit effort="1000.0" lower="3.14" upper="-3.14" velocity="0.5"/>
+  </joint>
+
+  
+
+  <link name="caster_wheel">
+    <visual>
+      <origin rpy ="0 1.57 0"/>
+      <geometry>
+	<mesh filename="package://urdf_tutorial/urdf/files/W420_Ball_Caster.stl.dae" scale="0.552 0.552 0.552"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="base_caster" type="fixed">
+	<parent link="base_link"/>
+	<child link="caster_wheel"/>
+	<origin xyz="0.1 0 0.095"/>
+  </joint>
+</robot>
